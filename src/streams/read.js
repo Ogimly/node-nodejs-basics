@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { stdout, stderr } from 'process';
+import { stdout } from 'process';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
@@ -13,12 +13,7 @@ const read = async () => {
 
   try {
     const streamRead = fs.createReadStream(fullName, 'utf-8');
-
-    let text = '';
-
-    streamRead.on('data', (chunk) => (text += chunk));
-    streamRead.on('error', (error) => stderr.write(`error reading file: ${error}`));
-    streamRead.on('end', () => stdout.write(text));
+    streamRead.pipe(stdout);
   } catch (error) {
     throw new Error(errorMessage);
   }

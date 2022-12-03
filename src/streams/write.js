@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { stdout, stdin } from 'process';
+import { stdout } from 'process';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
