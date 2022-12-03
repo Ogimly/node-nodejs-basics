@@ -1,12 +1,12 @@
 import { writeFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
+import { getFullName } from '../utils/utils.js';
 
 export const create = async () => {
-  const __dirname = dirname(fileURLToPath(import.meta.url));
+  const metaUrl = fileURLToPath(import.meta.url);
   const fileName = 'fresh.txt';
   const folderName = 'files';
-  const fullName = path.join(__dirname, folderName, fileName);
+  const fullName = getFullName(metaUrl, folderName, fileName);
 
   const content = 'I am fresh and young';
   const errorMessage = 'FS operation failed';
