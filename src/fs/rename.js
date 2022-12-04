@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import { writeFile, rename as renameFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
@@ -14,8 +14,8 @@ const rename = async () => {
 
   try {
     try {
-      await fsPromises.writeFile(fullNameNew, '', { flag: 'wx' });
-      await fsPromises.rename(fullName, fullNameNew);
+      await writeFile(fullNameNew, '', { flag: 'wx' });
+      await renameFile(fullName, fullNameNew);
       console.log(`"${fileName}" renamed to "${fileNameNew}"`);
     } catch (error) {
       console.log(error.message);

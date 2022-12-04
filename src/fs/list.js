@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import { readdir } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
@@ -11,7 +11,7 @@ const list = async () => {
 
   try {
     try {
-      const files = await fsPromises.readdir(fullName, { withFileTypes: true });
+      const files = await readdir(fullName, { withFileTypes: true });
       console.log(`List of "${folderName}":`);
       files.forEach((file) =>
         file.isFile()

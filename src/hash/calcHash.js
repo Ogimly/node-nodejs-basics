@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import { readFile } from 'fs/promises';
 import { createHash } from 'crypto';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
@@ -11,7 +11,7 @@ const calculateHash = async () => {
   console.log(fullName);
 
   try {
-    const content = await fsPromises.readFile(fullName);
+    const content = await readFile(fullName);
     const hash = createHash('sha256').update(content).digest('hex');
     console.log('Hash: ' + hash);
   } catch (error) {

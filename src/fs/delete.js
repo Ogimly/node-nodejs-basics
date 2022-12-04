@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import { rm } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
@@ -12,7 +12,7 @@ const remove = async () => {
 
   try {
     try {
-      await fsPromises.rm(fullName);
+      await rm(fullName);
       console.log(`"${fileName}" deleted`);
     } catch (error) {
       console.log(error.message);

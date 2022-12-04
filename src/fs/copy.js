@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import { mkdir, readdir, copyFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { getFullName, logStatus } from '../utils/utils.js';
@@ -7,7 +7,7 @@ const errorMessage = 'FS operation failed';
 
 const makeDir = async (folder, isLog = true) => {
   try {
-    await fsPromises.mkdir(folder);
+    await mkdir(folder);
     if (isLog) console.log(`${folder} created`);
   } catch {
     throw new Error(errorMessage);
@@ -16,7 +16,7 @@ const makeDir = async (folder, isLog = true) => {
 
 const copyDir = async (folderSrc, folderDest, isLog = true) => {
   try {
-    const files = await fsPromises.readdir(folderSrc, { withFileTypes: true });
+    const files = await readdir(folderSrc, { withFileTypes: true });
 
     await Promise.all(
       files.map((file) => {
@@ -25,7 +25,7 @@ const copyDir = async (folderSrc, folderDest, isLog = true) => {
 
         if (file.isFile()) {
           if (isLog) console.log(`copy ${prevFileName} -> ${newFileName}`);
-          fsPromises.copyFile(prevFileName, newFileName);
+          copyFile(prevFileName, newFileName);
         } else {
           if (isLog) console.log(`copy dir ${prevFileName} -> ${newFileName}`);
           makeDir(newFileName, isLog);

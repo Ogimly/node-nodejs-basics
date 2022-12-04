@@ -1,4 +1,4 @@
-import fs from 'fs';
+import { createReadStream } from 'fs';
 import { stdout } from 'process';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
@@ -10,7 +10,7 @@ const read = async () => {
   const fullName = getFullName(metaUrl, folderName, fileName);
 
   try {
-    const streamRead = fs.createReadStream(fullName, 'utf-8');
+    const streamRead = createReadStream(fullName, 'utf-8');
     streamRead.pipe(stdout);
   } catch (error) {
     console.log(error);

@@ -1,4 +1,4 @@
-import fsPromises from 'fs/promises';
+import { readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
@@ -12,7 +12,7 @@ const read = async () => {
 
   try {
     try {
-      const content = (await fsPromises.readFile(fullName)).toString();
+      const content = (await readFile(fullName)).toString();
       console.log(`Content of "${fileName}":`);
       console.log(content);
     } catch (error) {
