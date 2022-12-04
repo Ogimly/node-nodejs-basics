@@ -1,16 +1,9 @@
 import fsPromises from 'fs/promises';
 import { fileURLToPath } from 'url';
 import path from 'path';
-import { getFullName } from '../utils/utils.js';
+import { getFullName, logStatus } from '../utils/utils.js';
 
 const errorMessage = 'FS operation failed';
-
-// node fs:copy -с off||on
-// default value 'on' -> true
-const logStatus = () => {
-  const index = process.argv.indexOf('-c');
-  return index === -1 ? true : !(process.argv[index + 1] === 'off');
-};
 
 const makeDir = async (folder, isLog = true) => {
   try {

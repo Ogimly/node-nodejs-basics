@@ -8,7 +8,7 @@
     "cli:env": "npx cross-env SOME=any RSS_foo=bar RSS_bar=baz node src/cli/env.js",
     "cp": "node src/cp/cp.js",
     "fs:copy": "node src/fs/copy.js",
-    "fs:copy-off": "node src/fs/copy.js -c off",
+    "fs:copy-on": "node src/fs/copy.js -c on",
     "fs:create": "node src/fs/create.js",
     "fs:delete": "node src/fs/delete.js",
     "fs:list": "node src/fs/list.js",
@@ -20,6 +20,7 @@
     "streams:transform": "node src/streams/transform.js",
     "streams:write": "node src/streams/write.js",
     "wt": "node src/wt/main.js",
+    "wt-on": "node src/wt/main.js -c on",
     "zip:compress": "node src/zip/compress.js",
     "zip:decompress": "node src/zip/decompress.js"
   },

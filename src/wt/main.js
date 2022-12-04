@@ -1,12 +1,14 @@
 import { Worker } from 'worker_threads';
 import { cpus } from 'os';
 import { fileURLToPath } from 'url';
-import { getFullName } from '../utils/utils.js';
+import { getFullName, logStatus } from '../utils/utils.js';
 
 const performCalculations = async () => {
   const metaUrl = fileURLToPath(import.meta.url);
   const fileName = 'worker.js';
   const fullName = getFullName(metaUrl, fileName);
+
+  const isLog = logStatus();
 
   const CPUs = cpus();
   let counter = 10;
@@ -15,7 +17,7 @@ const performCalculations = async () => {
     CPUs.map(() => {
       return new Promise((resolve, reject) => {
         const worker = new Worker(fullName, {
-          workerData: counter,
+          workerData: { counter, isLog },
         });
         counter += 1;
 
