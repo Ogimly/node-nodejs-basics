@@ -11,13 +11,17 @@ const transform = async () => {
     },
   });
 
-  pipeline(process.stdin, revert, process.stdout, (error) => {
-    if (error) {
-      stderr.write(`error on transform: ${error}`);
-    }
-  });
+  try {
+    pipeline(process.stdin, revert, process.stdout, (error) => {
+      if (error) {
+        stderr.write(`error on transform: ${error}`);
+      }
+    });
 
-  console.log('Type anything to console:\n');
+    console.log('Type anything to console (press Ctrl+C to cancel):\n');
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 await transform();

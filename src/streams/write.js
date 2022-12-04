@@ -3,8 +3,6 @@ import { stdout } from 'process';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
-const errorMessage = 'FS operation failed';
-
 const write = async () => {
   const metaUrl = fileURLToPath(import.meta.url);
   const fileName = 'fileToWrite.txt';
@@ -15,9 +13,9 @@ const write = async () => {
     const streamWrite = fs.createWriteStream(fullName, 'utf-8');
     process.stdin.pipe(streamWrite);
 
-    stdout.write('Enter text to write to file (press Ctrl+C to cancel):');
+    stdout.write('Enter text to write to file (press Ctrl+C to cancel):\n');
   } catch (error) {
-    throw new Error(errorMessage);
+    console.log(error);
   }
 };
 
