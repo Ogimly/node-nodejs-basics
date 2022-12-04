@@ -1,6 +1,7 @@
+import { rm } from 'fs/promises';
 import { createGzip } from 'zlib';
 import { createReadStream, createWriteStream } from 'fs';
-import { pipeline } from 'stream';
+import { pipeline, finished } from 'stream';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
@@ -19,11 +20,17 @@ const compress = async () => {
 
     pipeline(readStream, Gzip, writeStream, (error) => {
       if (error) {
-        stderr.write(`error on compressing: ${error}`);
+        console.log(`error on compressing: ${error}`);
       }
     });
 
-    console.log(`"${fileName}" compressed to "${fileNameZip}"`);
+    finished(readStream, async (error) => {
+      if (error) {
+        await rm(fullNameZip, { force: true });
+      } else {
+        console.log(`"${fileName}" compressed to "${fileNameZip}"`);
+      }
+    });
   } catch (error) {
     console.log(error);
   }
