@@ -9,7 +9,8 @@ const spawnChildProcess = async (args) => {
   const fullName = getFullName(metaUrl, folderName, fileName);
 
   const childProcess = fork(fullName, [...args], {
-    stdio: [process.stdin, process.stdout, 'ipc'],
+    stdio: 'inherit',
+    // stdio: [process.stdin, process.stdout, 'ipc'],
   });
 
   //   const childProcess = fork(fullName, [...args], { silent: true });
