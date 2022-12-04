@@ -11,10 +11,15 @@ const remove = async () => {
   const fullName = getFullName(metaUrl, folderName, fileName);
 
   try {
-    await fsPromises.rm(fullName);
-    console.log(`"${fileName}" deleted`);
+    try {
+      await fsPromises.rm(fullName);
+      console.log(`"${fileName}" deleted`);
+    } catch (error) {
+      console.log(error.message);
+      throw new Error(errorMessage);
+    }
   } catch (error) {
-    throw new Error(errorMessage);
+    console.log(`Failed. Error has been thrown: "${error.message}"`);
   }
 };
 

@@ -11,11 +11,16 @@ const read = async () => {
   const fullName = getFullName(metaUrl, folderName, fileName);
 
   try {
-    const content = (await fsPromises.readFile(fullName)).toString();
-    console.log(`Content of "${fileName}":`);
-    console.log(content);
+    try {
+      const content = (await fsPromises.readFile(fullName)).toString();
+      console.log(`Content of "${fileName}":`);
+      console.log(content);
+    } catch (error) {
+      console.log(error.message);
+      throw new Error(errorMessage);
+    }
   } catch (error) {
-    throw new Error(errorMessage);
+    console.log(`Failed. Error has been thrown: "${error.message}"`);
   }
 };
 

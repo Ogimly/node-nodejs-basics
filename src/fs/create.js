@@ -2,6 +2,8 @@ import { writeFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { getFullName } from '../utils/utils.js';
 
+const errorMessage = 'FS operation failed';
+
 export const create = async () => {
   const metaUrl = fileURLToPath(import.meta.url);
   const fileName = 'fresh.txt';
@@ -9,13 +11,17 @@ export const create = async () => {
   const fullName = getFullName(metaUrl, folderName, fileName);
 
   const content = 'I am fresh and young';
-  const errorMessage = 'FS operation failed';
 
   try {
-    await writeFile(fullName, content, { flag: 'wx' });
-    console.log(`"${fileName}" created`);
+    try {
+      await writeFile(fullName, content, { flag: 'wx' });
+      console.log(`"${fileName}" created`);
+    } catch (error) {
+      console.log(error.message);
+      throw new Error(errorMessage);
+    }
   } catch (error) {
-    throw new Error(errorMessage);
+    console.log(`Failed. Error has been thrown: "${error.message}"`);
   }
 };
 

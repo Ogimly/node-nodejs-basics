@@ -54,9 +54,13 @@ const copy = async () => {
 
   const isLog = logStatus();
 
-  await makeDir(fullNameDest, isLog);
-  await copyDir(fullNameSrc, fullNameDest, isLog);
-  console.log(`Done. New directory is "${folderDest}"`);
+  try {
+    await makeDir(fullNameDest, isLog);
+    await copyDir(fullNameSrc, fullNameDest, isLog);
+    console.log(`Done. New directory is "${folderDest}"`);
+  } catch (error) {
+    console.log(`Failed. Error has been thrown: "${error.message}"`);
+  }
 };
 
 copy();

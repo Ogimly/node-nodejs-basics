@@ -13,11 +13,16 @@ const rename = async () => {
   const fullNameNew = getFullName(metaUrl, folderName, fileNameNew);
 
   try {
-    await fsPromises.writeFile(fullNameNew, '', { flag: 'wx' });
-    await fsPromises.rename(fullName, fullNameNew);
-    console.log(`"${fileName}" renamed to "${fileNameNew}"`);
+    try {
+      await fsPromises.writeFile(fullNameNew, '', { flag: 'wx' });
+      await fsPromises.rename(fullName, fullNameNew);
+      console.log(`"${fileName}" renamed to "${fileNameNew}"`);
+    } catch (error) {
+      console.log(error.message);
+      throw new Error(errorMessage);
+    }
   } catch (error) {
-    throw new Error(errorMessage);
+    console.log(`Failed. Error has been thrown: "${error.message}"`);
   }
 };
 

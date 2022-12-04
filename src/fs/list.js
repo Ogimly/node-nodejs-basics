@@ -10,16 +10,22 @@ const list = async () => {
   const fullName = getFullName(metaUrl, folderName);
 
   try {
-    const files = await fsPromises.readdir(fullName, { withFileTypes: true });
-    files.forEach((file) =>
-      file.isFile()
-        ? console.log(`file: ${file.name}`)
-        : console.log(`folder: ${file.name}`)
-    );
+    try {
+      const files = await fsPromises.readdir(fullName, { withFileTypes: true });
+      console.log(`List of "${folderName}":`);
+      files.forEach((file) =>
+        file.isFile()
+          ? console.log(`file: ${file.name}`)
+          : console.log(`folder: ${file.name}`)
+      );
 
-    console.log(`Done`);
+      console.log(`Done`);
+    } catch (error) {
+      console.log(error.message);
+      throw new Error(errorMessage);
+    }
   } catch (error) {
-    throw new Error(errorMessage);
+    console.log(`Failed. Error has been thrown: "${error.message}"`);
   }
 };
 
