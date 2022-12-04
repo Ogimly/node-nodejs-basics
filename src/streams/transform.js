@@ -18,7 +18,7 @@ const transform = async () => {
       }
     });
 
-    console.log('Type anything to console (press Ctrl+C to cancel):\n');
+    console.log(`Type anything to console (press Ctrl+C to cancel):${EOL}`);
   } catch (error) {
     console.log(error);
   }

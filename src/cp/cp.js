@@ -1,5 +1,6 @@
 import { fork } from 'child_process';
 import { fileURLToPath } from 'url';
+import { EOL } from 'os';
 import { getFullName } from '../utils/utils.js';
 
 const spawnChildProcess = async (args) => {
@@ -18,8 +19,11 @@ const spawnChildProcess = async (args) => {
   //   process.stdin.pipe(childProcess.stdin);
   //   childProcess.stdout.pipe(process.stdout);
 
-  // process.stdout.write('Enter text (press Ctrl+C to cancel):\n');
-  setTimeout(() => process.stdout.write('Enter text (press Ctrl+C to cancel):\n'), 120);
+  // process.stdout.write(`Enter text (press Ctrl+C to cancel):${EOL}`);
+  setTimeout(
+    () => process.stdout.write(`Enter text (press Ctrl+C to cancel):${EOL}`),
+    120
+  );
 };
 
 spawnChildProcess(['1', '2', '3']);
