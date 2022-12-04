@@ -11,6 +11,14 @@ const spawnChildProcess = async (args) => {
   const childProcess = fork(fullName, [...args], {
     stdio: [process.stdin, process.stdout, 'ipc'],
   });
+
+  //   const childProcess = fork(fullName, [...args], { silent: true });
+
+  //   process.stdin.pipe(childProcess.stdin);
+  //   childProcess.stdout.pipe(process.stdout);
+
+  // process.stdout.write('Enter text (press Ctrl+C to cancel):\n');
+  setTimeout(() => process.stdout.write('Enter text (press Ctrl+C to cancel):\n'), 120);
 };
 
 spawnChildProcess(['1', '2', '3']);
